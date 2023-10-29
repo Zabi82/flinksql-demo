@@ -1,0 +1,111 @@
+version: '2.1'
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.0
+    hostname: mysql
+    ports:
+     - 3306:3306
+    volumes:
+      - ./scripts/init_sql_scripts.sql:/docker-entrypoint-initdb.d/init_sql_scripts.sql
+    environment:
+     - MYSQL_ROOT_PASSWORD=root
+     - MYSQL_USER=mysqluser
+     - MYSQL_PASSWORD=mysqlpw
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.0
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.13.0
+    ports:
+      - "5601:5601"
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.0.9
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+  broker:
+    image: confluentinc/cp-kafka:7.0.9
+    hostname: broker
+    container_name: broker
+    depends_on:
+      - zookeeper
+    ports:
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+  jobmanager:
+    #image: flink:1.17.1
+    build: .    
+    ports:
+      - "8081:8081"
+    command: jobmanager
+    volumes:
+      - ./conf:/opt/flink/conf
+      - ./input:/opt/flink/input
+      - flink_data:/tmp/
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager        
+
+  taskmanager:
+    #image: flink:1.17.1
+    build: .
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    volumes:
+      - ./conf:/opt/flink/conf
+      - ./input:/opt/flink/input
+      - flink_data:/tmp/
+    scale: 1
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 4        
+  sql-client:
+    #image: flink:1.17.1
+    build: .
+    command: bin/sql-client.sh
+    #command: /bin/sh
+    volumes:
+      - ./conf:/opt/flink/conf
+      - ./input:/opt/flink/input
+      - flink_data:/tmp/
+    tty: true
+    depends_on:
+      - jobmanager
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        rest.address: jobmanager        
+volumes:
+  flink_data:
