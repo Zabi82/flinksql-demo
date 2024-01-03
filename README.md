@@ -57,7 +57,7 @@ as a volume inside the Flink containers.
 5) Checkout the [repo](https://github.com/Zabi82/flink-analytics-demo) for simulating events. Refer to the README.md 
 of the simulator repo for the pre-requisites. The simulation can be launched by running DataIngester.java which will
 ingest messages to the running Kafka broker to a topic "taxi_ride" as well as batched events to File system under
-$HOME/flinksql/input directory. You can modify this directory as needed in the simulator program
+$HOME/flinksql-demo/input directory. You can modify this directory as needed in the simulator program
 6) Verify if the events are being written to the kafka topic using command line or tools like OffSetExplorer. Also 
 check if events are written to file system. 
 7) Verify by launching a MySQL client to check data in the location table. Refer to the connection details of MySQL
