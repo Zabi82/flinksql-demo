@@ -51,19 +51,21 @@ as a volume inside the Flink containers.
 ## Download and bring up the containers and start simulator
 
 1) Make sure Docker Daemon is running
-2) Checkout this repo and go the directory of this project. 
-3) Bring up the containers using the command ``` docker-compose up -d ```
-4) Perform ``` docker ps ``` and make sure there are 8 containers up and running for the demo
-5) Checkout the [repo](https://github.com/Zabi82/flink-analytics-demo) for simulating events. Refer to the README.md 
+2) Checkout this repo. 
+3) Rename the directory to flinksql
+4) cd to the directory
+5) Bring up the containers using the command ``` docker-compose up -d ```
+6) Perform ``` docker ps ``` and make sure there are 8 containers up and running for the demo
+7) Checkout the [repo](https://github.com/Zabi82/flink-analytics-demo) for simulating events. Refer to the README.md 
 of the simulator repo for the pre-requisites. The simulation can be launched by running DataIngester.java which will
 ingest messages to the running Kafka broker to a topic "taxi_ride" as well as batched events to File system under
-$HOME/flinksql-demo/input directory. You can modify this directory as needed in the simulator program
-6) Verify if the events are being written to the kafka topic using command line or tools like OffSetExplorer. Also 
+$HOME/flinksql/input directory. You can modify this directory as needed in the simulator program
+8) Verify if the events are being written to the kafka topic using command line or tools like OffSetExplorer. Also 
 check if events are written to file system. 
-7) Verify by launching a MySQL client to check data in the location table. Refer to the connection details of MySQL
+9) Verify by launching a MySQL client to check data in the location table. Refer to the connection details of MySQL
 from the docker-compose.yml file
-8) Verify [Flink UI](http://localhost:8081/#/overview) from the browser and check the task slots and other details
-9) Verify [Kibana UI](http://localhost:5601) from the browser
+10) Verify [Flink UI](http://localhost:8081/#/overview) from the browser and check the task slots and other details
+11) Verify [Kibana UI](http://localhost:5601) from the browser
 
 ## Flink Demo Tasks
 
