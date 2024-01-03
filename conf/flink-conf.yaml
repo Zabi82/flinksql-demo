@@ -17,12 +17,12 @@
 ################################################################################
 
 jobmanager.memory.process.size: 1600Mb
-jobmanager.rpc.address: 99dfb0deb1af
+jobmanager.rpc.address: 224fb1cbc516
 blob.server.port: 6124
 query.server.port: 6125
 
 taskmanager.memory.process.size: 1728Mb
-taskmanager.numberOfTaskSlots: 2
+taskmanager.numberOfTaskSlots: 6
 
 state.backend: filesystem
 state.checkpoints.dir: file:///tmp/flink-checkpoints-directory
@@ -35,53 +35,7 @@ heartbeat.timeout: 5000
 rest.flamegraph.enabled: true
 web.backpressure.refresh-interval: 10000
 
-jobmanager.rpc.address: 99dfb0deb1af
 
 
-jobmanager.rpc.address: 99dfb0deb1af
-taskmanager.numberOfTaskSlots: 4        
 
-
-jobmanager.rpc.address: 99dfb0deb1af
-rest.address: jobmanager        
-
-
-jobmanager.rpc.address: 99dfb0deb1af
-
-
-jobmanager.rpc.address: 99dfb0deb1af
-taskmanager.numberOfTaskSlots: 4        
-
-
-jobmanager.rpc.address: 99dfb0deb1af
-
-
-jobmanager.rpc.address: 99dfb0deb1af
-rest.address: jobmanager        
-
-
-jobmanager.rpc.address: 99dfb0deb1af
-taskmanager.numberOfTaskSlots: 4        
-
-
-jobmanager.rpc.address: 99dfb0deb1af
-
-
-jobmanager.rpc.address: 99dfb0deb1af
-taskmanager.numberOfTaskSlots: 4        
-
-
-jobmanager.rpc.address: 99dfb0deb1af
-rest.address: jobmanager        
-
-
-jobmanager.rpc.address: 99dfb0deb1af
-
-
-jobmanager.rpc.address: jobmanager
-taskmanager.numberOfTaskSlots: 4        
-
-
-jobmanager.rpc.address: jobmanager
-rest.address: jobmanager        
 

@@ -73,7 +73,6 @@ services:
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager        
-
   taskmanager:
     #image: flink:1.17.1
     build: .
@@ -89,7 +88,7 @@ services:
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
-        taskmanager.numberOfTaskSlots: 4        
+        taskmanager.numberOfTaskSlots: 6 
   sql-client:
     #image: flink:1.17.1
     build: .
