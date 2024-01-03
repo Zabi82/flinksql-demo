@@ -12,7 +12,7 @@ events to Kafka and Waive batches the events and writes to File System. A bookin
 dropOffLocation, PickupDateTime etc. The events will be simulated using a Java program and we will have different 
 themes to demonstrate the booking pattern for a regular day, a normal weekend, Friday evening, long weekend etc.
 
-Refer to the Java code for the simulator in this [repo] (https://github.com/Zabi82/flink-analytics-demo)
+Refer to the Java code for the simulator in this [repo](https://github.com/Zabi82/flink-analytics-demo)
 
 A sample message looks as follows
 
@@ -54,7 +54,7 @@ as a volume inside the Flink containers.
 2) Checkout this repo and go the directory of this project. 
 3) Bring up the containers using the command ``` docker-compose up -d ```
 4) Perform ``` docker ps ``` and make sure there are 8 containers up and running for the demo
-5) Checkout the [repo] (https://github.com/Zabi82/flink-analytics-demo) for simulating events. Refer to the README.md 
+5) Checkout the [repo](https://github.com/Zabi82/flink-analytics-demo) for simulating events. Refer to the README.md 
 of the simulator repo for the pre-requisites. The simulation can be launched by running DataIngester.java which will
 ingest messages to the running Kafka broker to a topic "taxi_ride" as well as batched events to File system under
 $HOME/flinksql/input directory. You can modify this directory as needed in the simulator program
@@ -62,8 +62,8 @@ $HOME/flinksql/input directory. You can modify this directory as needed in the s
 check if events are written to file system. 
 7) Verify by launching a MySQL client to check data in the location table. Refer to the connection details of MySQL
 from the docker-compose.yml file
-8) Verify [Flink UI] (http://localhost:8081/#/overview) from the browser and check the task slots and other details
-9) Verify [Kibana UI] (http://localhost:5601) from the browser
+8) Verify [Flink UI](http://localhost:8081/#/overview) from the browser and check the task slots and other details
+9) Verify [Kibana UI](http://localhost:5601) from the browser
 
 ## Flink Demo Tasks
 
@@ -209,7 +209,7 @@ These queries spins up tasks in Flink and this can be monitored in Flink UI. Use
 
 Create elastic search index to store enriched Taxi Booking Data with geopoint. Note that it's possible for Flink 
 to auto create this but to precisely define the location attribute as "geo_point", we are explicitly creating the 
-index. This should be done from [Dev Tools] (http://localhost:5601/app/dev_tools#/console)
+index. This should be done from [Dev Tools](http://localhost:5601/app/dev_tools#/console)
 
 
 ```
@@ -267,7 +267,7 @@ from TAXI_BOOKINGS_FILES TB INNER JOIN SG_LOCATIONS_DB SLD ON TB.dropOffLocation
 #### Task 3 - Perform Windowing operations on the Taxi Booking Event Data from Kafka as well as File System to count the top drop off locations within that window and send the results to Elasticsearch to be able to visualize in Kibana
 
 Create elastic search index to store the windowed operation's results. 
-This should be done from [Dev Tools] (http://localhost:5601/app/dev_tools#/console)
+This should be done from [Dev Tools](http://localhost:5601/app/dev_tools#/console)
 
 ```
 
@@ -294,7 +294,7 @@ PUT ride_count_by_location_per_ten_second
 ```
 
 For visualizing the results of Task #2 and Task #3, import index patterns and dashboard objects in Elastic by using
-the file export.ndjson in this project. This should be done from the [Kibana UI] (http://localhost:5601/app/management/kibana/objects) 
+the file export.ndjson in this project. This should be done from the [Kibana UI](http://localhost:5601/app/management/kibana/objects) 
 and selecting import option and choosing the file export.ndjson which is part of this project. It should import 
 3 object including 2 index patterns and 1 Dashboard
 
@@ -338,7 +338,7 @@ TUMBLE(TABLE TAXI_BOOKINGS_FILES, DESCRIPTOR(ts), INTERVAL '10' SECOND))
 GROUP BY dropOffLocation, window_start, window_end;
 
 ```
-Now to visualize the results of Task #2 and Task #3, go to [Kibana Dashboards] ( http://localhost:5601/app/dashboards#/list?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-3m,to:now)) ) 
+Now to visualize the results of Task #2 and Task #3, go to [Kibana Dashboards](http://localhost:5601/app/dashboards#/list?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-3m,to:now)) ) 
 and click on Taxi Analytics Dashboard. Click on Fit to Window on the map by clicking on "Fit to Data bounds" icon 
 which is a slanted double headed arrow as showin in the image below.
 
